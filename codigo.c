@@ -7,7 +7,7 @@ int imprimirMatriz()
 
 int main(void) 
 {
-        FILE *fp;
+    FILE *fp;
     char str[4226];
 
     fp = fopen("dados_matriz.txt", "r");
