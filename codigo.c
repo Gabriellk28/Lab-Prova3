@@ -123,6 +123,37 @@ void escreverMatrizComplementar(char *nomeArquivoOriginal) {
     fclose(fp_complementar);
 }
 
+void escreverVerticesMultiplosDeCinco() {
+    FILE *fp_entrada, *fp_saida;
+    char str[4228];
+    int contadorLinha = 0;
+
+    fp_entrada = fopen("dados_matriz.txt", "r");
+    if (fp_entrada == NULL) {
+        printf("Erro ao abrir o arquivo de entrada.\n");
+        return;
+    }
+
+    fp_saida = fopen("dados_grafo_gerador.txt", "w");
+    if (fp_saida == NULL) {
+        printf("Erro ao abrir o arquivo de saída.\n");
+        fclose(fp_entrada);
+        return;
+    }
+
+    while (fgets(str, sizeof(str), fp_entrada) != NULL) {
+        if (contadorLinha != 0) {
+            if (contadorLinha % 5 == 0) {
+                fprintf(fp_saida, "%s", str);
+            }
+        }
+        contadorLinha++;
+    }
+
+    fclose(fp_entrada);
+    fclose(fp_saida);
+}
+
 int main(void)
 {
     FILE *fp;
@@ -184,6 +215,8 @@ int main(void)
     escreverGraus("dados_matriz.txt");
 
     escreverMatrizComplementar("dados_matriz.txt");
+
+    escreverVerticesMultiplosDeCinco();
 
     return 0;
 }

@@ -5,6 +5,8 @@ Resposta: d(V1255) = 1129.
 
 **2. Apresente em um arquivo chamado dados_grafos_graus.txt o número do vértices seguido pelo seu respectivo grau.**
 
+Resposta: [dados_grafos_graus.txt](dados_grafos_graus.txt)
+
 **3. Se existir, quais são os vértices isolados?**
 
 Resposta: Não existem vértices isolados.
@@ -32,6 +34,8 @@ Resposta: NA (Não se aplica).
 **9. Apresente o grafo complementar e os represente em um arquivo com o nome "dados_grafo_complementar.txt".**
 
 **10. Apresente um novo arquivo chamado "dados_grafo_gerador.txt" com os vértices múltiplos de 5.**
+
+Resposta: [dados_grafo_gerador.txt](dados_grafo_gerador.txt)
 
 **11. Encontre o maior clique do grafo da questão.**
 
