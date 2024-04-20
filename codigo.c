@@ -27,19 +27,6 @@ int verticeIsolado(char *linha)
     return 1;
 }
 
-// Função para escrever o grafo complementar no arquivo
-void escreverGrafoComplementar(FILE *arquivoSaida, int nVertices, int **matrizComplementar) {
-  int i, j;
-  fprintf(arquivoSaida, "%d %d\n", nVertices, 0); // Assume-se que o grafo complementar não possui arestas
-
-  for (i = 0; i < nVertices; i++) {
-    for (j = 0; j < nVertices; j++) {
-      if (matrizComplementar[i][j] == 0 && i != j) {
-        fprintf(arquivoSaida, "%d %d\n", i, j);
-      }
-    }
-  }
-}
 
 int main(void)
 {
