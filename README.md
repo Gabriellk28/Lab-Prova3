@@ -4,6 +4,7 @@
 ## 2. Apresente em um arquivo chamado dados_grafos_graus.txt o número do vértices seguido pelo seu respectivo grau.
 
 ### 3. Se existir, quais são os vértices isolados?
+Resposta: Não existem vértices isolados.
 
 ### 4. Existe um vértice sumidouro?
 Resposta: NA (Não se aplica).
@@ -12,6 +13,7 @@ Resposta: NA (Não se aplica).
 Resposta: NA (Não se aplica).
 
 ### 6. Determine o grau de Emissão e Recepção de cada vértice e os coloque em arquivos chamados de "dados_grafos_emissao.txt" e "dados_grafos_recepcao.txt".
+Resposta: NA (Não se aplica).
 
 ### 7. Apresente um arquivo com o grafo complementar da questão;
 
