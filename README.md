@@ -23,7 +23,7 @@ Resposta: NA (Não se aplica).
 
 **7. Apresente um arquivo com o grafo complementar da questão;**
 
-Resposta: [text](matriz_complementar.txt)
+Resposta: [matriz_complementar.txt](matriz_complementar.txt)
 
 **8. Inverta a direção de todas as arestas do grafo da questão e apresente-os em um novo arquivo com o nome de "dados_grafos_invertido.txt".**
 
