@@ -37,13 +37,19 @@ Este trabalho tem como objetivo analisar e manipular grafos representados por ma
 `Resposta:` NA (Não se aplica).
 
 **9. Apresente o grafo complementar e os represente em um arquivo com o nome "dados_grafo_complementar.txt".**
+
 `Resposta:`
+
 **10. Apresente um novo arquivo chamado "dados_grafo_gerador.txt" com os vértices múltiplos de 5.**
 
 `Resposta:` [dados_grafo_gerador.txt](dados_grafo_gerador.txt)
 
 **11. Encontre o maior clique do grafo da questão.**
+
 `Resposta:`
+
 **12. Verifique se o primeiro e último vértice estão conectados.**
+
 `Resposta:`
+
 Resposta: O primeiro e último vértice estão conectados.
