@@ -50,6 +50,4 @@ Este trabalho tem como objetivo analisar e manipular grafos representados por ma
 
 **12. Verifique se o primeiro e último vértice estão conectados.**
 
-`Resposta:`
-
-Resposta: O primeiro e último vértice estão conectados.
+`Resposta:` O primeiro e último vértice estão conectados.
