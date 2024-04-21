@@ -1,4 +1,9 @@
 # Lab-Prova3
+
+**Introdução**
+
+Considerando uma matriz de adjacência que representa um grafo, este programa tem como objetivo responder as questões propostas utilizando as informações contidas na matriz. A matriz de adjacência fornece uma representação numérica das conexões entre os vértices do grafo, permitindo a análise e manipulação de diversas características da estrutura gráfica.
+
 **1. Qual(is) o vértice(s) com maior(es) grau?**
 
 Resposta: d(V1255) = 1129.
