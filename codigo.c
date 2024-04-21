@@ -2,32 +2,105 @@
 #include <stdlib.h>
 #include <string.h>
 
-int calculaGrauVertice(char *linha)
+//Função para calcular o grau de um vértice
+int GrauVertice(char *linha)
 {
-    int grau = 0;
-    for (int i = 0; linha[i] != '\0'; i++)
+    int grau = 0; //Variável para armazenar o grau dos vértices
+
+    for (int i = 0; linha[i] != '\0'; i++) //Laço de repetição para percorrer o vetor que contém a linha da matriz
     {
-        if (linha[i] == '1')
+        if (linha[i] == '1') //Verifica se o índice do vetor contém o caracter 1
         {
-            grau++;
+            grau++; //Incrementa em 1 o grau do vértice
         }
     }
-    return grau;
+    return grau; //Retorna o grau do vétice.
 }
 
-int verticeIsolado(char *linha)
+//Função que Calcula o Maior vértice da matriz de adjacencia do grafo
+int MaiorGrauVertice(char *nomeArquivo)
 {
-    for (int i = 0; linha[i] != '\0'; i++)
+    int contadorLinha = 0; //Variável para contabilizar as linhas lidas
+    int maiorGrau = 0; //Variável para armazenar o Maior grau 
+    int numeroVerticeMaiorGrau = 0; //Variável para armazenar o número do vétice com maior grau
+    int grau = 0; //váriável para armazenar os graus dos vértices
+    char str[4228]; //Vetor para armazenar uma linha do arquivo
+
+    FILE *fp = fopen(nomeArquivo, "r"); //Ponteiro para o arquivo
+    if (fp == NULL) //
     {
-        if (linha[i] == '1')
-        {
-            return 0; // Se encontrar um '1', não é um vértice isolado
-        }
+        printf("Erro ao abrir o arquivo.\n");
+        return 1;
     }
-    return 1; // Se não encontrar nenhum '1', é um vértice isolado
+    while (fgets(str, sizeof(str), fp) != NULL)
+    {
+        if (contadorLinha == 0)
+        {
+            contadorLinha++;
+            continue;
+        }
+
+        grau = GrauVertice(str);
+        if (grau > maiorGrau)
+        {
+            maiorGrau = grau;
+            numeroVerticeMaiorGrau = contadorLinha;
+        }
+        contadorLinha++;
+    }
+
+    printf("Questão 1 - Vértice de Maior Grau: d(V%d) = %d.\n", numeroVerticeMaiorGrau, maiorGrau);
 }
 
-void escreverGraus(char *nomeArquivo)
+void verticesIsolados(char *nomeArquivo)
+{
+    int verticesIsolados = 0;
+    FILE *fp = fopen(nomeArquivo, "r");
+    if (fp == NULL)
+    {
+        printf("Erro ao abrir o arquivo.\n");
+        return;
+    }
+
+    char linha[4228];
+    int linhaAtual = 1; // Para acompanhar o número da linha
+    int encontrouUm = 0; // Flag para indicar se encontrou algum '1' na linha
+
+    while (fgets(linha, sizeof(linha), fp) != NULL)
+    {
+        encontrouUm = 0; // Reinicializa a flag para cada nova linha
+
+        for (int i = 0; linha[i] != '\0'; i++)
+        {
+            if (linha[i] == '1')
+            {
+                encontrouUm = 1; // Se encontrar um '1', atualiza a flag
+                break; // Sai do loop assim que encontrar um '1'
+            }
+        }
+
+        if (!encontrouUm)
+        {
+            printf("Vértice isolado encontrado na linha %d.\n", linhaAtual);
+            verticesIsolados++;
+        }
+
+        linhaAtual++; // Atualiza o número da linha
+    }
+
+    fclose(fp);
+
+    if (verticesIsolados == 0)
+    {
+        printf("Nenhum vértice isolado encontrado.\n");
+    }
+    else
+    {
+        printf("Total de vértices isolados: %d.\n", verticesIsolados);
+    }
+}
+
+void escreveGrausVertices(char *nomeArquivo)
 {
     FILE *fp, *fp_graus;
     char str[4228];
@@ -57,16 +130,56 @@ void escreverGraus(char *nomeArquivo)
             continue;
         }
 
-        grau = calculaGrauVertice(str);
+        grau = GrauVertice(str);
         fprintf(fp_graus, "V%d: %d\n", contadorLinha, grau);
         contadorLinha++;
     }
+
+    printf("Arquivo \"dados_grafos_graus.txt\" Gerado.\n");
 
     fclose(fp);
     fclose(fp_graus);
 }
 
-void escreverMatrizComplementar(char *nomeArquivoOriginal) {
+int PrimeiroUltimoVertice(char *nomeArquivo)
+{
+    int contadorLinha = 0;
+    int conectados = 0;
+    char str[4228];
+    FILE *fp = fopen(nomeArquivo, "r");
+    if (fp == NULL)
+    {
+        printf("Erro ao abrir o arquivo.\n");
+        return 1;
+    }
+    while (fgets(str, sizeof(str), fp) != NULL)
+    {
+        if (contadorLinha == 0)
+        {
+            contadorLinha++;
+            continue;
+        }
+
+        if (contadorLinha == 1)
+        {
+            if (str[strlen(str) - 3] == '1')
+            {
+                conectados = 1;
+            }
+        }
+
+        contadorLinha++;
+    }
+
+    if (conectados == 1)
+    {
+        printf("Questão 12 - O Primeiro e o Último Vértice Estão Conectados.\n");
+    } else {
+        printf("Questão 12 - O Primeiro e o Último Vértice Não Estão Conectados.\n");
+    }
+}
+
+void MatrizComplementar(char *nomeArquivoOriginal) {
     FILE *fp_original, *fp_complementar;
     char str[4228];
     int contadorLinha = 0;
@@ -123,7 +236,8 @@ void escreverMatrizComplementar(char *nomeArquivoOriginal) {
     fclose(fp_complementar);
 }
 
-void escreverVerticesMultiplosDeCinco() {
+void VerticesMultiplosDeCinco() 
+{
     FILE *fp_entrada, *fp_saida;
     char str[4228];
     int contadorLinha = 0;
@@ -156,67 +270,29 @@ void escreverVerticesMultiplosDeCinco() {
 
 int main(void)
 {
-    FILE *fp;
-    char str[4228];
-    int conectados = 0;
-    int maiorGrau = 0;
-    int numeroVerticeMaiorGrau = 0;
-    int contadorLinha = 0;
-    int quantidadeVerticesIsolados = 0;
-    int grau = 0;
-
-    fp = fopen("dados_matriz.txt", "r");
-    if (fp == NULL)
-    {
-        printf("Erro ao abrir o arquivo.\n");
-        return 1;
-    }
-
-    while (fgets(str, sizeof(str), fp) != NULL)
-    {
-        if (contadorLinha == 0)
-        {
-            contadorLinha++;
-            continue;
-        }
-
-        if (contadorLinha == 1)
-        {
-            if (str[strlen(str) - 3] == '1')
-            {
-                conectados = 1;
-            }
-        }
-
-        if (verticeIsolado(str) == 1)
-        {
-            quantidadeVerticesIsolados++;
-        }
-        grau = calculaGrauVertice(str);
-        if (grau > maiorGrau)
-        {
-            maiorGrau = grau;
-            numeroVerticeMaiorGrau = contadorLinha;
-        }
-        contadorLinha++;
-    }
-
-    fclose(fp);
-
-    printf("Questão 1 - Vértice de Maior Grau: d(V%d) = %d.\n", numeroVerticeMaiorGrau, maiorGrau);
-
-    printf("Questão 2 - Total de vértices isolados: %d.\n", quantidadeVerticesIsolados);
-
-    if (conectados == 1)
-    {
-        printf("Questão 12 - O Primeiro e o Último Vértice Estão Conectados.\n");
-    }
-
-    escreverGraus("dados_matriz.txt");
-
-    escreverMatrizComplementar("dados_matriz.txt");
-
-    escreverVerticesMultiplosDeCinco();
-
+    //Resposta do Tabalho:
+    printf("**RESPOSTAS**\n");
+    printf("Questão 1.\n");
+    MaiorGrauVertice("dados_matriz.txt");
+    printf("Questão 2.\n");
+    escreveGrausVertices("dados_matriz.txt");
+    printf("Questão 3.\n");
+    verticesIsolados("dados_matriz.txt");
+    printf("Questão 4.\n");
+    printf("NA (Não se aplica)\n");
+    printf("Questão 5.\n");
+    printf("NA (Não se aplica)\n");
+    printf("Questão 6.\n");
+    printf("NA (Não se aplica)\n");
+    printf("Questão 7 e 9.\n");
+    MatrizComplementar("dados_matriz.txt");
+    printf("Questão 8.\n");
+    printf("NA (Não se aplica)\n");
+    printf("Questão 10.\n");
+    VerticesMultiplosDeCinco();
+    printf("Questão 11.\n");
+    printf("Resposta:\n");
+    printf("Questão 12.\n");
+    PrimeiroUltimoVertice("dados_matriz.txt");
     return 0;
 }
