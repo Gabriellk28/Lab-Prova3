@@ -2,7 +2,7 @@
 
 **Introdução**
 
-Considerando uma matriz de adjacência que representa um grafo, este programa tem como objetivo responder as questões propostas utilizando as informações contidas na matriz. A matriz de adjacência fornece uma representação numérica das conexões entre os vértices do grafo, permitindo a análise e manipulação de diversas características da estrutura gráfica.
+Este trabalho tem como objetivo analisar e manipular grafos representados por matrizes de adjacência. A partir de um arquivo de texto contendo a matriz de adjacência de um grafo, serão realizadas diversas operações e análises, com os resultados registrados em arquivos de texto para posterior consulta.
 
 **1. Qual(is) o vértice(s) com maior(es) grau?**
 
