@@ -169,69 +169,65 @@ void verticesIsolados(char *nomeArquivo)
     }
 }
 
-void MatrizComplementar(char *nomeArquivo) 
+void MatrizComplementar(char *nomeArquivo) 
 {
-    FILE *paEntrada, *paSaida; // Ponteiros para os arquivos de entrada e saída
-    char linhaArquivo[LINHA]; // Vetor para armazenar uma linha do arquivo
-    int contadorLinha = 0; // Contador de linhas
-    int i = 0;
+  FILE *paEntrada, *paSaida; // Ponteiros para os arquivos de entrada e saída
+  char linhaArquivo[LINHA]; // Vetor para armazenar uma linha do arquivo
+  int contadorLinha = 0; // Contador de linhas
+  int i = 0;
 
-    // Abre o arquivo "dados_matriz.txt" para leitura 
-    paEntrada = fopen(nomeArquivo, "r");
-    if (paEntrada == NULL) {
-        printf("Erro ao abrir o arquivo original.\n");
-        return;
-    }
+  // Abre o arquivo "dados_matriz.txt" para leitura 
+  paEntrada = fopen(nomeArquivo, "r");
+  if (paEntrada == NULL) {
+    printf("Erro ao abrir o arquivo original.\n");
+    return;
+  }
 
-    // Abre o arquivo "matriz_complementar.txt" para escrita
-    paSaida = fopen("matriz_complementar.txt", "w");
-    if (paSaida == NULL) {
-        printf("Erro ao abrir o arquivo para escrita.\n");
-        fclose(paEntrada);
-        return;
-    }
+  // Abre o arquivo "matriz_complementar.txt" para escrita
+  paSaida = fopen("matriz_complementar.txt", "w");
+  if (paSaida == NULL) {
+    printf("Erro ao abrir o arquivo para escrita.\n");
+    fclose(paEntrada);
+    return;
+  }
 
-    // Laço de repetição para percorrer o arquivo
-    while (fgets(linhaArquivo, sizeof(linhaArquivo), paEntrada) != NULL) 
-    {   
-        // Ignora a primeira linha do arquivo (número de vértices)
-        if (contadorLinha == 0)
-        {
-            contadorLinha++;
-            continue;
-        }
+  // Laço de repetição para percorrer o arquivo
+  while (fgets(linhaArquivo, sizeof(linhaArquivo), paEntrada) != NULL) 
+  {  
+    // Ignora a primeira linha do arquivo (número de vértices)
+    if (contadorLinha == 0)
+    {
+      contadorLinha++;
+      continue;
+    }
 
-        // Laço de repetição para percorrer a linha da matriz
-        for (i = 1; linhaArquivo[i] != '\0'; i++)
-        {   
-            // Verifica se o índice do vetor está na diagonal principal
-            if (i == contadorLinha) // Não modifica a diagonal principal
-            {
-                continue;
-            }
-            else
-            {
-                // Inverte os valores 0 e 1
-                if (linhaArquivo[i] == '1')
-                {
-                    linhaArquivo[i] = '0';
-                }
-                else if (linhaArquivo[i] == '0')
-                {
-                    linhaArquivo[i] = '1';
-                }
-            }
-        }
+    // Laço de repetição para percorrer a linha da matriz
+    for (i = 1; linhaArquivo[i] != '\0'; i++)
+    {  
+      // Verifica se o índice do vetor está na diagonal principal
+      if (i == contadorLinha) // Não modifica a diagonal principal
+      {
+        continue;
+      }
+      else
+      {
+        // Inverte os valores 0 e 1
+        linhaArquivo[i] = (linhaArquivo[i] == '1') ? '0' : '1';
+      }
+    }
 
-        // Escreve a linha modificada no arquivo de saída
-        fprintf(paSaida, "%s", linhaArquivo);
+    // Escreve a linha modificada no arquivo de saída
+    fprintf(paSaida, "%s", linhaArquivo);
 
-        contadorLinha++;
-    }
+    // Adiciona quebra de linha se necessário
+    if (linhaArquivo[i] != '\n') fputs("\n", paSaida);
 
-    fclose(paEntrada);
-    fclose(paSaida);
-    printf("Resposta: Arquivo \"matriz_complementar.txt\" gerado.\n");
+    contadorLinha++;
+  }
+
+  fclose(paEntrada);
+  fclose(paSaida);
+  printf("Resposta: Arquivo \"matriz_complementar.txt\" gerado.\n");
 }
 
 
