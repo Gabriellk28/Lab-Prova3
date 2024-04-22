@@ -202,12 +202,12 @@ void MatrizComplementar(char *nomeArquivo)
         }
 
         // Laço de repetição para percorrer a linha da matriz
-        for (i = 0; linhaArquivo[i] != '\0'; i++)
+        for (i = 1; linhaArquivo[i] != '\0'; i++)
         {   
             // Verifica se o índice do vetor está na diagonal principal
-            if (i == contadorLinha - 1) // -1 porque os índices começam em 0
+            if (i == contadorLinha) // Não modifica a diagonal principal
             {
-                linhaArquivo[i] = '0'; // Diagonal principal é 0
+                continue;
             }
             else
             {
@@ -233,6 +233,7 @@ void MatrizComplementar(char *nomeArquivo)
     fclose(paSaida);
     printf("Resposta: Arquivo \"matriz_complementar.txt\" gerado.\n");
 }
+
 
 //Função para imprimir os vértices do grafo que sejam multiplos de 5
 void VerticesMultiplosDeCinco(char *arquivo)
