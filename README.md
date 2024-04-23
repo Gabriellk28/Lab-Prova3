@@ -1,5 +1,9 @@
 # Lab-Prova3
 
+**Componentes**
+- Carlos Natyel Freire Andrade
+- Uyanê Gabriel Lima da Silva
+
 **Introdução**
 
 Este trabalho tem como objetivo analisar e manipular grafos representados por matrizes de adjacência. A partir de um arquivo de texto contendo a matriz de adjacência de um grafo, serão realizadas diversas operações e análises, com os resultados registrados em arquivos de texto para posterior consulta.
