@@ -9,7 +9,7 @@ int GrauVertice(char *linha)
     // Variável para armazenar o grau dos vértices
     int grau = 0;
 
-    //Laço de repetição para percorrer o vetor que contém a linha da matriz
+    // Laço de repetição para percorrer o vetor que contém a linha da matriz
     for (int i = 0; linha[i] != '\0'; i++)
     {
         // Verifica se o índice do vetor contém o caracter 1
@@ -26,62 +26,61 @@ int GrauVertice(char *linha)
 // Função que Calcula o Maior vértice da matriz de adjacencia do grafo
 int MaiorGrauVertice(char *nomeArquivo)
 {
-    int contadorLinha = 0;//Variável para contabilizar as linhas lidas
-    int maiorGrau = 0;//Variável para armazenar o Maior grau
-    int numeroVerticeMaiorGrau = 0;//Variável para armazenar o número do vétice com maior grau
-    int grau = 0;//váriável para armazenar os graus dos vértices
-    char linhaArquivo[LINHA];//Vetor para armazenar uma linha do arquivo
+    int contadorLinha = 0;          // Variável para contabilizar as linhas lidas
+    int maiorGrau = 0;              // Variável para armazenar o Maior grau
+    int numeroVerticeMaiorGrau = 0; // Variável para armazenar o número do vétice com maior grau
+    int grau = 0;                   // váriável para armazenar os graus dos vértices
+    char linhaArquivo[LINHA];       // Vetor para armazenar uma linha do arquivo
 
-    //Ponteiro para o arquivo
+    // Ponteiro para o arquivo
     FILE *fp = fopen(nomeArquivo, "r");
     if (fp == NULL)
     {
-        //Informa se ocorreu um erro ao abrir o arquivo
+        // Informa se ocorreu um erro ao abrir o arquivo
         printf("Erro ao abrir o arquivo.\n");
         return 1;
     }
 
-    //Laço de repetição para percorrer o vetor que contém a linha da matriz
+    // Laço de repetição para percorrer o vetor que contém a linha da matriz
     while (fgets(linhaArquivo, LINHA, fp) != NULL)
     {
-        //Verifica se está na primeira linha
+        // Verifica se está na primeira linha
         if (contadorLinha == 0)
         {
-            //Incrementa o contador de linha em 1
+            // Incrementa o contador de linha em 1
             contadorLinha++;
 
-            //Continua a execução
+            // Continua a execução
             continue;
         }
 
-        //Calcula o grau do vértice
+        // Calcula o grau do vértice
         grau = GrauVertice(linhaArquivo);
 
-        //Verifica se o o grau do vértice da linha é o maior
+        // Verifica se o o grau do vértice da linha é o maior
         if (grau > maiorGrau)
         {
-            //O grau do vértice passa a ser o maior
+            // O grau do vértice passa a ser o maior
             maiorGrau = grau;
 
-            //Armazena o número do vértice de maior grau
+            // Armazena o número do vértice de maior grau
             numeroVerticeMaiorGrau = contadorLinha;
         }
 
-        //Incrementa o contador de linha em 1
+        // Incrementa o contador de linha em 1
         contadorLinha++;
     }
 
-
-    //Informa a resposta
+    // Informa a resposta
     printf("Resposta: Vértice de Maior Grau: d(V%d) = %d.\n", numeroVerticeMaiorGrau, maiorGrau);
 }
 
-//Função para escrevero número do vértices seguido pelo seu respectivo grau em um arquivo
+// Função para escrevero número do vértices seguido pelo seu respectivo grau em um arquivo
 void escreveGrausVertices(char *nomeArquivo)
 {
-    FILE *paEntrada, *paSaida;
-    char linhaArquivo[LINHA];
-    int contadorLinha = 0;
+    FILE *paEntrada, *paSaida;// Ponteiros para os arquivos de entrada e saída
+    char linhaArquivo[LINHA]; // Vetor para armazenar uma linha do arquivo
+    int contadorLinha = 0; 
     int grau = 0;
 
     paEntrada = fopen(nomeArquivo, "r");
@@ -122,7 +121,10 @@ void escreveGrausVertices(char *nomeArquivo)
 
 void verticesIsolados(char *nomeArquivo)
 {
-    int verticesIsolados = 0;//Variável para armazenar a quantidade de vértices isolados no grafo
+    int verticesIsolados = 0; // Variável para armazenar a quantidade de vértices isolados no grafo
+    char linha[4228];
+    int linhaAtual = 1;  // Para acompanhar o número da linha
+    int vertice = 0; // Variável para indicar se encontrou algum '1' na linha
     FILE *pa;
     pa = fopen(nomeArquivo, "r");
     if (pa == NULL)
@@ -131,24 +133,20 @@ void verticesIsolados(char *nomeArquivo)
         return;
     }
 
-    char linha[4228];
-    int linhaAtual = 1; // Para acompanhar o número da linha
-    int encontrouUm = 0; // Flag para indicar se encontrou algum '1' na linha
-
     while (fgets(linha, sizeof(linha), pa) != NULL)
     {
-        encontrouUm = 0; // Reinicializa a flag para cada nova linha
+        vertice = 0; // Reinicializa a variável para cada nova linha
 
         for (int i = 0; linha[i] != '\0'; i++)
         {
             if (linha[i] == '1')
             {
-                encontrouUm = 1; // Se encontrar um '1', atualiza a flag
-                break; // Sai do loop assim que encontrar um '1'
+                vertice = 1; // Se encontrar um '1', atualiza a flag
+                break;           // Sai do loop assim que encontrar um '1'
             }
         }
 
-        if (!encontrouUm)
+        if (!vertice)
         {
             printf("Vértice isolado encontrado na linha %d.\n", linhaAtual);
             verticesIsolados++;
@@ -169,31 +167,33 @@ void verticesIsolados(char *nomeArquivo)
     }
 }
 
-void MatrizComplementar(char *nomeArquivo) 
+void MatrizComplementar(char *nomeArquivo)
 {
     FILE *paEntrada, *paSaida; // Ponteiros para os arquivos de entrada e saída
-    char linhaArquivo[LINHA]; // Vetor para armazenar uma linha do arquivo
-    int contadorLinha = 0; // Contador de linhas
-    int i = 0;
+    char linhaArquivo[LINHA];  // Vetor para armazenar uma linha do arquivo
+    int contadorLinha = 0;     // Contador de linhas
+    int i;
 
-    // Abre o arquivo "dados_matriz.txt" para leitura 
+    // Abre o arquivo para leitura
     paEntrada = fopen(nomeArquivo, "r");
-    if (paEntrada == NULL) {
-        printf("Erro ao abrir o arquivo original.\n");
+    if (paEntrada == NULL)
+    {
+        printf("Erro ao abrir o arquivo %s para leitura.\n", nomeArquivo);
         return;
     }
 
-    // Abre o arquivo "matriz_complementar.txt" para escrita
+    // Abre o arquivo para escrita
     paSaida = fopen("matriz_complementar.txt", "w");
-    if (paSaida == NULL) {
-        printf("Erro ao abrir o arquivo para escrita.\n");
+    if (paSaida == NULL)
+    {
+        printf("Erro ao abrir o arquivo matriz_complementar.txt para escrita.\n");
         fclose(paEntrada);
         return;
     }
 
     // Laço de repetição para percorrer o arquivo
-    while (fgets(linhaArquivo, sizeof(linhaArquivo), paEntrada) != NULL) 
-    {   
+    while (fgets(linhaArquivo, LINHA, paEntrada) != NULL)
+    {
         // Ignora a primeira linha do arquivo (número de vértices)
         if (contadorLinha == 0)
         {
@@ -202,47 +202,42 @@ void MatrizComplementar(char *nomeArquivo)
         }
 
         // Laço de repetição para percorrer a linha da matriz
-        for (i = 1; linhaArquivo[i] != '\0'; i++)
-        {   
-            // Verifica se o índice do vetor está na diagonal principal
-            if (i == contadorLinha) // Não modifica a diagonal principal
+        for (i = 0; linhaArquivo[i] != '\0'; i++)
+        {
+            // Inverte os valores '0' e '1'
+            if (linhaArquivo[i] == '0')
             {
-                continue;
+                linhaArquivo[i] = '1';
             }
-            else
+            else if (linhaArquivo[i] == '1')
             {
-                // Inverte os valores 0 e 1
-                if (linhaArquivo[i] == '1')
-                {
-                    linhaArquivo[i] = '0';
-                }
-                else if (linhaArquivo[i] == '0')
-                {
-                    linhaArquivo[i] = '1';
-                }
+                linhaArquivo[i] = '0';
             }
         }
 
         // Escreve a linha modificada no arquivo de saída
         fprintf(paSaida, "%s", linhaArquivo);
 
+        // Incrementa o contador de linha
         contadorLinha++;
     }
 
+    // Fecha os arquivos
     fclose(paEntrada);
     fclose(paSaida);
-    printf("Resposta: Arquivo \"matriz_complementar.txt\" gerado.\n");
+
+    // Imprime a resposta da questão
+    printf("Resposta: Arquivo \"matriz_complementar.txt\" gerado com sucesso.\n");
 }
 
-
-//Função para imprimir os vértices do grafo que sejam multiplos de 5
+// Função para imprimir os vértices do grafo que sejam multiplos de 5
 void VerticesMultiplosDeCinco(char *arquivo)
 {
-    FILE *paEntrada = NULL, *paSaida = NULL;//Ponteiros para os arquivos de entrada e saída
-    char linhaArquivo[LINHA];//Vetor para armazenar uma linha do arquivo
-    int contadorLinha = 0;//Contador de linhas
+    FILE *paEntrada = NULL, *paSaida = NULL; // Ponteiros para os arquivos de entrada e saída
+    char linhaArquivo[LINHA];                // Vetor para armazenar uma linha do arquivo
+    int contadorLinha = 0;                   // Contador de linhas
 
-    //Abre o arquivo "dados_matriz.txt" para leitura
+    // Abre o arquivo "dados_matriz.txt" para leitura
     paEntrada = fopen(arquivo, "r");
     if (paEntrada == NULL)
     {
@@ -250,7 +245,7 @@ void VerticesMultiplosDeCinco(char *arquivo)
         return;
     }
 
-    //Abre o arquivo "dados_grafo_gerador.txt" para escrita
+    // Abre o arquivo "dados_grafo_gerador.txt" para escrita
     paSaida = fopen("dados_grafo_gerador.txt", "w");
     if (paSaida == NULL)
     {
@@ -259,79 +254,79 @@ void VerticesMultiplosDeCinco(char *arquivo)
         return;
     }
 
-    //Laço de repetição para percorrer o arquivo
+    // Laço de repetição para percorrer o arquivo
     while (fgets(linhaArquivo, LINHA, paEntrada) != NULL)
-    {   
-        //Veririca se não é a primeira linha do arquivo
+    {
+        // Veririca se não é a primeira linha do arquivo
         if (contadorLinha != 0)
-        {   
-            //Verifica se o número armazenado pelo contador de linhas é multiplo de 5
+        {
+            // Verifica se o número armazenado pelo contador de linhas é multiplo de 5
             if (contadorLinha % 5 == 0)
             {
-                //Implique a linha no arquivo "dados_grafo_gerador.txt"
+                // Implique a linha no arquivo "dados_grafo_gerador.txt"
                 fprintf(paSaida, "%s", linhaArquivo);
             }
         }
 
-        //Incrementa o contador de linhas em 1
+        // Incrementa o contador de linhas em 1
         contadorLinha++;
     }
 
-    //Fecha os arquivos
+    // Fecha os arquivos
     fclose(paEntrada);
     fclose(paSaida);
 
-    //Imprime a resposta da questão
+    // Imprime a resposta da questão
     printf("Resposta: Arquivo \"dados_grafo_gerador.txt\" Gerado.\n");
 }
 
-//Função para verificar se o primeiro e último vértices do grafo estão conectados
+// Função para verificar se o primeiro e último vértices do grafo estão conectados
 int PrimeiroUltimoVertice(char *nomeArquivo)
 {
-    int contadorLinha = 0;// Contador de linhas
-    int conectados = 0;//Variável para indicar se o primeiro e o último vértice estão conectados
-    char linhaArquivo[LINHA];//Vetor para armazenar uma linha do arquivo
-    FILE *pa;//Poneteiro para o arquivo
+    int contadorLinha = 0;    // Contador de linhas
+    int conectados = 0;       // Variável para indicar se o primeiro e o último vértice estão conectados
+    char linhaArquivo[LINHA]; // Vetor para armazenar uma linha do arquivo
+    FILE *pa;                 // Poneteiro para o arquivo
 
     // Abre o arquivo "dados_matriz.txt" para leitura
     pa = fopen(nomeArquivo, "r");
 
-    //Verifica se houver algum erro ao abrir o arquivo
+    // Verifica se houver algum erro ao abrir o arquivo
     if (pa == NULL)
     {
         printf("Erro ao abrir o arquivo.\n");
         return 1;
     }
 
-    //Laço de repetição para percorrer o arquivo
-    while (fgets(linhaArquivo, LINHA, pa) != NULL) 
+    // Laço de repetição para percorrer o arquivo
+    while (fgets(linhaArquivo, LINHA, pa) != NULL)
     {
-        //Ignora a primeira linha do arquivo (número de vértices)
-        if (contadorLinha == 0) 
+        // Ignora a primeira linha do arquivo (número de vértices)
+        if (contadorLinha == 0)
         {
             contadorLinha++;
             continue;
         }
 
-        //Verifica se está é a primeira linha
+        // Verifica se está é a primeira linha
         if (contadorLinha == 1)
         {
             // Verifica se o primeiro vértice (linha 1) está conectado com o último (última linha)
             if (linhaArquivo[strlen(linhaArquivo) - 3] == '1')
             {
-                //A variável recebe 1 caso estejam conectados
+                // A variável recebe 1 caso estejam conectados
                 conectados = 1;
             }
         }
 
-        //Incrementa o contador de linhas em 1
+        // Incrementa o contador de linhas em 1
         contadorLinha++;
     }
 
-    //Fecha o arquivo
+    // Fecha o arquivo
     fclose(pa);
 
-    //Imprime a resposta da questão
+    // Imprime a resposta da questão
     if (conectados == 1)
     {
         printf("Respoat: O Primeiro e o Último Vértice Estão Conectados.\n");
