@@ -42,7 +42,7 @@ int MaiorGrauVertice(char *nomeArquivo)
     }
 
     // Laço de repetição para percorrer o vetor que contém a linha da matriz
-    while (fgets(linhaArquivo, LINHA, fp) != NULL)
+    while (fgets(linhaArquivo, LINHA, pa) != NULL)
     {
         // Verifica se está na primeira linha
         if (contadorLinha == 0)

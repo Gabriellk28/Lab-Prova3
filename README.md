@@ -42,7 +42,7 @@ Este trabalho tem como objetivo analisar e manipular grafos representados por ma
 
 **9. Apresente o grafo complementar e os represente em um arquivo com o nome "dados_grafo_complementar.txt".**
 
-`Resposta:`
+`Resposta:` [matriz_complementar.txt](matriz_complementar.txt)
 
 **10. Apresente um novo arquivo chamado "dados_grafo_gerador.txt" com os vértices múltiplos de 5.**
 
@@ -50,7 +50,7 @@ Este trabalho tem como objetivo analisar e manipular grafos representados por ma
 
 **11. Encontre o maior clique do grafo da questão.**
 
-`Resposta:`
+`Resposta:` Não Feita.
 
 **12. Verifique se o primeiro e último vértice estão conectados.**
 
