@@ -167,33 +167,31 @@ void verticesIsolados(char *nomeArquivo)
     }
 }
 
-void MatrizComplementar(char *nomeArquivo)
+void MatrizComplementar(char *nomeArquivo) 
 {
     FILE *paEntrada, *paSaida; // Ponteiros para os arquivos de entrada e saída
-    char linhaArquivo[LINHA];  // Vetor para armazenar uma linha do arquivo
-    int contadorLinha = 0;     // Contador de linhas
-    int i;
+    char linhaArquivo[LINHA]; // Vetor para armazenar uma linha do arquivo
+    int contadorLinha = 0; // Contador de linhas
+    int i = 0;
 
-    // Abre o arquivo para leitura
+    // Abre o arquivo "dados_matriz.txt" para leitura 
     paEntrada = fopen(nomeArquivo, "r");
-    if (paEntrada == NULL)
-    {
-        printf("Erro ao abrir o arquivo %s para leitura.\n", nomeArquivo);
+    if (paEntrada == NULL) {
+        printf("Erro ao abrir o arquivo original.\n");
         return;
     }
 
-    // Abre o arquivo para escrita
+    // Abre o arquivo "matriz_complementar.txt" para escrita
     paSaida = fopen("matriz_complementar.txt", "w");
-    if (paSaida == NULL)
-    {
-        printf("Erro ao abrir o arquivo matriz_complementar.txt para escrita.\n");
+    if (paSaida == NULL) {
+        printf("Erro ao abrir o arquivo para escrita.\n");
         fclose(paEntrada);
         return;
     }
 
     // Laço de repetição para percorrer o arquivo
-    while (fgets(linhaArquivo, LINHA, paEntrada) != NULL)
-    {
+    while (fgets(linhaArquivo, sizeof(linhaArquivo), paEntrada) != NULL) 
+    {   
         // Ignora a primeira linha do arquivo (número de vértices)
         if (contadorLinha == 0)
         {
@@ -202,32 +200,39 @@ void MatrizComplementar(char *nomeArquivo)
         }
 
         // Laço de repetição para percorrer a linha da matriz
-        for (i = 0; linhaArquivo[i] != '\0'; i++)
-        {
-            // Inverte os valores '0' e '1'
-            if (linhaArquivo[i] == '0')
+        for (i = 1; linhaArquivo[i] != '\0'; i++)
+        {   
+            // Verifica se o índice do vetor está na diagonal principal
+            if (i == contadorLinha) // Não modifica a diagonal principal
             {
-                linhaArquivo[i] = '1';
+                continue;
             }
-            else if (linhaArquivo[i] == '1')
+            else
             {
-                linhaArquivo[i] = '0';
+                // Inverte os valores 0 e 1
+                if (linhaArquivo[i] == '1')
+                {
+                    linhaArquivo[i] = '0';
+                }
+                else if (linhaArquivo[i] == '0')
+                {
+                    linhaArquivo[i] = '1';
+                }
             }
         }
 
-        // Escreve a linha modificada no arquivo de saída
-        fprintf(paSaida, "%s", linhaArquivo);
+    // Escreve a linha modificada no arquivo de saída
+    fprintf(paSaida, "%s", linhaArquivo);
 
-        // Incrementa o contador de linha
+    // Adiciona quebra de linha se necessário
+    if (linhaArquivo[i] != '\n') fputs("\n", paSaida);
+
         contadorLinha++;
     }
 
-    // Fecha os arquivos
     fclose(paEntrada);
     fclose(paSaida);
-
-    // Imprime a resposta da questão
-    printf("Resposta: Arquivo \"matriz_complementar.txt\" gerado com sucesso.\n");
+    printf("Resposta: Arquivo \"matriz_complementar.txt\" gerado.\n");
 }
 
 // Função para imprimir os vértices do grafo que sejam multiplos de 5
